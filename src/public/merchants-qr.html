@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <style>
+        @media print {
+            body {-webkit-print-color-adjust: exact;}
+        }
+        @font-face {
+            font-family: 'OpenSans';
+            src: url('/fonts/Open_Sans/OpenSans-Regular.ttf');
+        }
+
+        html { font-size:100%; font-family: 'OpenSans'; }
+
+
+        .box {
+            margin-left: 30px;
+            margin-bottom: 17px;
+            border: 3px solid black;
+            background-color: #0a53be;
+            color: white;
+            text-align: center;
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+
+        .box > h4 {
+            margin: 5px; font-size: 12px;
+        }
+        .box > h2 {
+            padding: 0; margin: 0;
+        }
+    </style>
+    <script type="text/javascript" src="qr-codes/qrcode.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+
+<script>
+    let numberOfQrs = 16;
+
+    let getUrl = window.location;
+    let baseUrl = getUrl .protocol + "//" + getUrl.host
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const merchantId = urlParams.get('merchantId');
+
+    for (i=1; i <= numberOfQrs; i++) {
+        var typeNumber = 5;
+        var errorCorrectionLevel = 'L';
+        var qr = qrcode(typeNumber, errorCorrectionLevel);
+        qr.addData(baseUrl + '/shoppers?merchantId=' +merchantId+ '&table=' +i);
+        qr.make();
+
+        html = "<div class=\"box\" style=\"float: left\">"+
+            "<h1>Salta't la cua</h1>"+
+            "<span>Menú digital | Nosaltres venim</span>"+
+            "<div id=\"qr"+i+"\">"+qr.createImgTag(6)+"</div>"+
+            "<h3>Paga amb: Google Pay | Apple Pay</h3>"+
+            "<h2>Taula "+i+"</h2>"+
+            "<h4>www.handbell.digital</h4>"+
+        "</div>";
+
+        $('body').append(html);
+    }
+
+</script>
+</body>
+</html>

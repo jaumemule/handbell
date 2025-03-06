@@ -1,0 +1,30 @@
+version: '3'
+services:
+  handbell_db:
+    container_name: handbell_db
+    image: mongo:5.0.15-focal
+    volumes:
+      - mongoData:/data/db
+    ports:
+      - "27017:27017"
+
+  # handbell:
+  #   build:
+  #     context: ./src/middleware
+  #   command: nodemon -L ./src/middleware/server.js
+  #   volumes:
+  #     - ./src/middleware/src:/usr/app/src
+  #   ports:
+  #     - "8070:8070"
+  #   environment:
+  #     MONGO_CONNECTION: mongodb://mongo:27017/aggregated
+  #     ENVIRONMENT: dev
+  #     PORT: 3005
+  #     API_URL: "http://handbell_db:3000"
+  #     JWT_SECRET: "3WbTAW#9d4me2C"
+
+#Volumes https://medium.com/vena-engineering/the-case-of-the-hidden-mongo-data-8e8ae25f85a8
+volumes:
+  mongoData:
+    external:
+      name: mongo_external

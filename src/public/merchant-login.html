@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>HandBell Admin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta  http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta  name="HandheldFriendly" content="true">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/ajax.js"></script>
+<script src="/js/merchant-auth.js"></script>
+<script src="/js/login.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+
+</head>
+<body>
+
+<h2>Login</h2>
+
+<form id='login_form'>
+    <div class="container">
+        <label><b>Email</b></label>
+        <input id="email" type="text" placeholder="Escriu l'email" name="email" required>
+
+        <label><b>Contrasenya</b></label>
+        <input id="password" type="password" placeholder="Escriu la contrasenya" name="password" required>
+
+        <button type="submit">Continua</button>
+        <i id="submit-spinner" style="display:none" class="spin-loader fa fa-spinner"></i>
+        <div id="feedback" style="color:red"></div>
+    </div>
+</form>

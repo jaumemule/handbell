@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <script src="/bootstrap/bootstrap-5.0.2-dist/js/popper.min.js"></script>
+    <script src="/bootstrap/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/ajax.js"></script>
+    <script src="/js/shoppers.js"></script>
+    <script src="/js/translations.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/shoppers.css">
+
+</head>
+<body>
+<header class="d-flex flex-wrap border-bottom" style="padding-left: 15px">
+    <div class="d-flex align-items-left mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span id="merchant-title" class="title"></span>
+    </div>
+    <span id="go-back-to-menu">< <trans tag="modify"></trans></span>
+</header>
+
+<nav class="navbar navbar-light bg-light" style="margin-top: -3%;">
+    <div class="container-fluid" id="navContainer">
+        <div class="col-4">
+            <div class="navbar-header">
+                <div id="tableNumber"><trans tag="table"></trans> <span id="table-number">0</span></div>
+            </div>
+        </div>
+        <div class="col-8" id="menu-category">
+            <ul class="nav" style="float: right">
+                <li class="nav-item">
+                    <a trigger="menu-items-drink" class="nav-link menu-category-button menu-item-category-selected" href="#"><trans tag="drinks"></trans></a>
+                </li>
+                <li class="nav-item">
+                    <a trigger="menu-items-food" class="nav-link menu-category-button" href="#"><trans tag="food"></trans></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12">
+            <ul id="subcategory-menu-items-drink" class="col-12 nav subcategory-menu subcategory-item-menu-drink">
+
+            </ul>
+        </div>
+        <div class="col-12">
+            <ul id="subcategory-menu-items-food" class="nav subcategory-menu subcategory-item-menu-food" style="display: none">
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+
+    <section id="menu-screen" class="main-wrapper">
+        <div id="menu-items-drink" class="container-fluid col-12 mb-4 menu-item-wrapper">
+
+            <!-- items get loaded here -->
+        </div>
+        <div id="menu-items-food" class="container-fluid col-12 mb-4 menu-item-wrapper">
+
+            <!-- items get loaded here -->
+        </div>
+        <a href="#merchant-title">
+            <div id="demanar-wrapper" class="fixed-bottom demanar">
+                <div class="col-12">
+
+                    <div class="col-3">
+                        <span id="basket-quantity">0</span>
+                        <span class="basket-bell col-3">🔔</span>
+                    </div>
+
+                    <div class="col-12 basket-description-button">
+                            <trans tag="order"></trans>
+                        (<span id="basket-price">0</span>€) >
+                    </div>
+
+                </div>
+            </div>
+        </a>
+    </section>
+
+    <section id="confirm-selection-screen" class="main-wrapper">
+        <div id="confirm-selection-items">
+            <!-- gets printed here -->
+        </div>
+
+        <div style="padding-left: 3%; margin-top: 3%; font-size: 1.5rem" class="container-fluid col-12 py-3 mb-4">
+            <div>
+                <p>Total <span id="totalPrice">0</span>€</p>
+            </div>
+
+            <div>
+                <p style="font-size: 1rem"><trans tag="checkout-tip"></trans></p>
+            </div>
+
+            <div style="margin-top: 10%">
+                <p><trans tag="add-tip"></trans></p>
+            </div>
+
+            <div class="tips-wrapper">
+                <div amount="0" class="tip-amount tip-selected"><span onclick="">0.00€</span></div>
+                <div amount="5" class="tip-amount"><span onclick="">0.05€</span></div>
+                <div amount="10" class="tip-amount"><span onclick="">0.10€</span></div>
+                <div amount="25" class="tip-amount"><span onclick="">0.25€</span></div>
+                <div amount="50" class="tip-amount"><span onclick="">0.50€</span></div>
+                <div amount="100" class="tip-amount"><span onclick="">1€</span></div>
+                <div amount="250" class="tip-amount"><span onclick="">2.5€</span></div>
+                <div amount="500" class="tip-amount"><span onclick="">5€</span></div>
+            </div>
+
+            <p id="payment-methods-title"><trans tag="payment-methods"></trans></p>
+
+            <div id="payment-method" class="payment-method-button">
+                <p class="text-center" style="font-size: 1rem; padding: 0; margin: 0; width: 100%"><trans tag="select-payment-method"></trans> ></p>
+            </div>
+
+            <div id="loading-payment-method" class="payment-method-button">
+                <p class="text-center" style="font-size: 1rem; padding: 0; margin: 0; width: 100%"><trans tag="loading"></trans></p>
+            </div>
+
+            <div class="payment-methods">
+                <div id="payment_request_container">
+                    <!-- Payment Request Component will be inserted here. -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="waiting-screen" class="post-payment">
+        <p>
+            <trans tag="sending"></trans> 📡
+        </p>
+        <p style="font-size: 2rem">
+            <trans tag="do-not-leave-tip"></trans>
+        </p>
+    </section>
+    <section id="closed-screen" class="post-payment">
+        <p>
+            <trans tag="not-open-yet"></trans>
+        </p>
+    </section>
+    <section id="restaurant-has-received" class="post-payment">
+        <p>
+            <trans tag="order-received-tip"></trans> 🤗
+        </p>
+        <p style="font-size: 2rem">
+            <trans tag="notify-while-ready-tip"></trans>
+        </p>
+        <div class="invoice-button">
+            <a onclick="downloadInvoice()"><trans tag="receipt"></trans></a>
+        </div>
+        <div class="invoice-button-loading">
+            <a><trans tag="loading"></trans></a>
+        </div>
+        <div class="invoice-button-done">
+            <a><trans tag="done"></trans></a>
+        </div>
+        <p style="font-size: 1rem">
+            <trans tag="write-us-tip"></trans>
+        </p>
+    </section>
+    <section id="confirmation-screen" class="post-payment">
+        <p>
+            <trans tag="on-its-way-tip"></trans> 🥳<br><br> <trans tag="enjoy-tip"></trans>
+        </p>
+        <div class="invoice-button">
+            <a onclick="downloadInvoice()"><trans tag="receipt"></trans></a>
+        </div>
+        <div class="invoice-button-loading">
+            <a><trans tag="loading"></trans></a>
+        </div>
+        <div class="invoice-button-done">
+            <a><trans tag="done"></trans></a>
+        </div>
+        <p style="font-size: 1rem">
+            <trans tag="write-us-tip"></trans>
+        </p>
+    </section>
+    <section id="wrong-screen" class="post-payment">
+        <p>
+            <trans tag="something-failed"></trans>
+        </p>
+        <p style="font-size: 2rem">
+            <trans tag="check-with-restaurant"></trans>
+        </p>
+    </section>
+
+    <aside id="top-arrow">
+        ^
+    </aside>
+</main>
+<input id="sessionId" type="hidden">
+</body>
+</html>

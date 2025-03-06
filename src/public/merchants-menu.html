@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <script src="/bootstrap/bootstrap-5.0.2-dist/js/popper.min.js"></script>
+    <script src="/bootstrap/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/ajax.js"></script>
+    <script src="/js/merchant-auth.js"></script>
+    <script src="/js/merchants-menu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/merchants.css">
+</head>
+<body>
+<header class="d-flex flex-wrap border-bottom">
+    <div class="d-flex align-items-left mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span id="header-merchant-title" style="color: #F2F4F3; margin-left: 6px"></span>
+    </div>
+</header>
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid" id="navContainer">
+        <div class="col-12" id="menu-category">
+            <ul class="nav" style="float: right">
+                <li class="nav-item">
+                    <a class="nav-link" href="/merchants-orders">Comandes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-selected" href="/merchants-menu">Menú</a>
+                </li>
+                <li class="nav-item">
+                    <a id="link-to-qr" class="nav-link" href="">QRs</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <section class="menu-section">
+        <div class="container-fluid col-12 py-1 d-flex flex-wrap menu-item-wrapper">
+            <h4 class="col-12">Activats:</h4>
+            <div class="container-fluid col-9 py-1 d-flex flex-wrap table-order"><p>Producte</p></div>
+            <div class="container-fluid col-3 py-1 d-flex flex-wrap table-order"><p>Desactiva</p></div>
+        </div>
+
+
+        <div id="menu-active-items" class="container-fluid col-12 py-1 mb-4 d-flex flex-wrap menu-item-wrapper">
+
+        </div>
+    </section>
+
+    <section class="menu-section">
+        <div class="container-fluid col-12 py-1 d-flex flex-wrap menu-item-wrapper">
+            <h4 class="col-12">Desactivats:</h4>
+            <div class="container-fluid col-9 py-1 d-flex flex-wrap table-order"><p>Producte</p></div>
+            <div class="container-fluid col-3 py-1 d-flex flex-wrap table-order"><p>Activa</p></div>        </div>
+        <div id="menu-inactive-items" class="container-fluid col-12 py-1 mb-4 d-flex flex-wrap menu-item-wrapper">
+
+        </div>
+    </section>
+
+</main>
+</body>
+</html>
